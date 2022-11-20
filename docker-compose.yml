@@ -3,11 +3,17 @@ version: '3.7'
 services:
     jenkins:
         container_name: jenkins
-        image: jenkins/jenkins:lts
+        build: .
         volumes:
             - ./data:/var/jenkins_home
             - /var/run/docker.sock:/var/run/docker.sock
+            - /volume:/volume
         ports:
             - 7000:8080
         privileged: true
         user: root
+
+networks:
+  default:
+    external:
+      name: dev_net
